@@ -1,0 +1,8 @@
+no		name		Math            OOP             Management      PE              Art             Java            Physics         average		
+1		Peter		4		3		4		5		Nan		Nan		Nan		4		
+2		Jason		5		3		Nan		3		3		Nan		Nan		3.5		
+3		Bruce		2		4		Nan		Nan		3		5		Nan		3.5		
+4		Barry		5		5		Nan		Nan		2		Nan		4		4		
+		average		4		3.75		4		4		2.66667		5		4		
+		min		2		3		4		3		2		5		4		
+		max		5		5		4		5		3		5		4		

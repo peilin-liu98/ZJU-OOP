@@ -1,0 +1,25 @@
+Peter
+Math 4
+OOP 3
+Management 4
+PE 5
+END 0
+Jason
+Math 5
+OOP 3
+PE 3
+Art 3
+END 0
+Bruce
+Java 5
+Art 3
+Math 2
+OOP 4
+END 0
+Barry
+OOP 5
+Math 5
+Art 2
+Physics 4
+END 0
+END 
