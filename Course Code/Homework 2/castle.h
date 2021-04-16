@@ -4,9 +4,9 @@
 
 using namespace std;
 
-const int max_level = 50;
-const int max_length = 50;
-const int max_width = 50;
+const int max_level = 5;
+const int max_length = 5;
+const int max_width = 5;
 const int box[] = {max_width, max_length, max_level};
 const int dimensions = 3;
 const string fordirect2go[] = {"west","north","up"};
