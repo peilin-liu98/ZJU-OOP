@@ -13,25 +13,21 @@ extern const bool default_status[];
 
 void exit_generator(bool* exit);
 void array_copy(bool*a, const bool*b, int size);
-int sum(bool a[directions]){
-    int sum = 0;
-    for (int i=0;i<directions;i++)
-    {
-        sum += a[i];
-    };
-    return sum;
-};
+int rand_num(int upper);
+int sum(bool a[directions]);
 
 Room::~Room(){
     delete[] exits;
     delete[] room_status;
 };
 
-bool Room::explored() { return found; };
+bool Room::explored() const { return found; };
 
 void Room::set_found() { found = 1; };
 
-bool Room::get_status(int type){ return room_status[type]; };
+bool Room::get_status(int type) const { return room_status[type]; };
+
+bool Room::get_connection(int direction) const { return exits[direction]; };
 
 void Room::set_type(string type) { 
     
@@ -128,11 +124,14 @@ void Room::print() {
 
 void exit_generator(bool* exit){
     //* (Binomial[x-1,5] + Binomial[x-1,4] + Binomial[x-1,3] + Binomial[x-1,2])/Binomial[6-1+x,x]
-    int num = 30;
+    int num = 6;
     int i = 0;
+    int random = 0;
+    srand((unsigned)time(NULL));
     for(i=0;i<num;i++)
     {
-        exit[rand_num(directions)] = 1;
+        random = rand() % directions;
+        exit[random] = 1;
     };
 };
 
@@ -142,3 +141,21 @@ void array_copy(bool*a, const bool *b, int size){
         a[i] = b[i];
     };
 }
+
+
+int rand_num(int upper){
+    //* upper cannot be achieved
+    int random = 0;
+    srand((unsigned)time(NULL));
+    random = rand() % upper;
+    return random;
+};
+
+int sum(bool a[directions]){
+    int sum = 0;
+    for (int i=0;i<directions;i++)
+    {
+        sum += a[i];
+    };
+    return sum;
+};

@@ -75,8 +75,18 @@ int* Castle::pos_connect(int*p1, int*p2, int dim){
     return p1;
 }
 
+bool Castle::check_way(string direction){
+
+    int num = go2num(direction);
+    Room* temp = get_room(current_pos);
+    bool connection = 0;
+    connection = (*temp).get_connection(num);
+
+    return connection; 
+};
 
 void Castle::go_to(string direction){
+    
     int num = go2num(direction);
     int dim = num - dimensions;
     int step = 0;
@@ -110,6 +120,10 @@ void Castle::go_to(string direction){
     else{
         game_status += (*temp).get_status(0);     
     };
+
+
+    cout << "current position:" << current_pos[0] << " " << current_pos[1] << " "
+    << current_pos[2] << endl;
 };
 
 

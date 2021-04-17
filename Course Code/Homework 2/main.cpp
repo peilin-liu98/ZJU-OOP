@@ -19,9 +19,9 @@ int main(){
     pos_generator(num_character, pos);
     
     //* Test Data
-    //* pos[0][0] = 4; pos[0][1] = 4; pos[0][2] = 2;
-    //* pos[1][0] = 1; pos[1][1] = 4; pos[1][2] = 2;
-    //* pos[2][0] = 3; pos[2][1] = 4; pos[2][2] = 2;
+     //pos[0][0] = 4; pos[0][1] = 4; pos[0][2] = 2;
+     //pos[1][0] = 1; pos[1][1] = 4; pos[1][2] = 2;
+     //pos[2][0] = 3; pos[2][1] = 4; pos[2][2] = 2;
     
 
     //* Initialize the Castle
@@ -36,19 +36,27 @@ int main(){
     string command[2];
 
     while (flag != 2){
+        
         cout << "Enter your command: " << endl;
         cin >> command[0] >> command[1];
-        castle.go_to(command[1]);
-        flag = castle.get_status();
-        if (flag < 0){
-            cout << "Killed by the Monster. Game Over!" << endl;
-            break;
+
+        
+        if (castle.check_way(command[1]) == 0){
+            cout << "You Hit against the Wall!!! Please Choose Another Direction!!!" << endl;
         }
-        else if (flag > 0 && princess == 0){
-            cout << "Meet Princess. Try to Find the Way Out!" << endl;
-            princess = 1;
-        }; 
-        castle.print();
+        else{
+            castle.go_to(command[1]);
+            flag = castle.get_status();
+            if (flag < 0){
+                cout << "Killed by the Monster. Game Over!" << endl;
+                break;
+            }
+            else if (flag > 0 && princess == 0){
+                cout << "Meet Princess. Try to Find the Way Out!" << endl;
+                princess = 1;
+            }; 
+            castle.print();
+        };   
     };  
     
     if (flag == 2){
@@ -62,9 +70,12 @@ int main(){
 
 void pos_generator(int num, int (*pos)[dimensions]){
     int i,j = 0;
+    int random = 0;
+    srand((unsigned)time(NULL));
     for (i=0;i<num;i++){
         for (j=0;j<dimensions;j++){
-            pos[i][j] = rand_num(box[j] + 1);
+            random = rand() % (box[j] + 1); 
+            pos[i][j] = random;
         };
     };
 }

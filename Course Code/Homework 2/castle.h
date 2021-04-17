@@ -4,9 +4,9 @@
 
 using namespace std;
 
-const int max_level = 5;
-const int max_length = 5;
-const int max_width = 5;
+const int max_level = 2;
+const int max_length = 2;
+const int max_width = 2;
 const int box[] = {max_width, max_length, max_level};
 const int dimensions = 3;
 const string fordirect2go[] = {"west","north","up"};
@@ -22,6 +22,7 @@ class Castle{
         void path_generator(int* pos1, int* pos2);
         int* pos_connect(int*p1, int*p2, int dim);
         void go_to(string direction);
+        bool check_way(string direction);
         int get_status();
         void print();
         void check_walls(int* pos);

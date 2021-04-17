@@ -18,10 +18,11 @@ class Room {
         void init_exit(string into);
         void init_exit();
         void set_found();
-        bool explored();
+        bool explored() const;
         void set_type(string type);
         void set_exit(string direction, bool status);
-        bool get_status(int type); 
+        bool get_status(int type) const;
+        bool get_connection(int direction) const; 
         void print();
 
     private:
@@ -43,14 +44,5 @@ static int go2num(string go){
         }; 
     }; 
     return num;
-};
-
-
-static int rand_num(int upper){
-    //* upper cannot be achieved
-    int random = 0;
-    srand((unsigned)time(NULL));
-    random = rand() % upper;
-    return random;
 };
 
