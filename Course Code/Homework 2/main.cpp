@@ -19,19 +19,23 @@ int main(){
     int (*pos)[dimensions] = new int[num_character][dimensions];
     
 
+    //* Ensure that three positions generated randomly are different.
     int check = 1;
     while(check > 0){
         pos_generator(num_character, pos);
         check = pos_check(pos[0],pos[2]) + pos_check(pos[1], pos[2]) 
         + pos_check(pos[0], pos[1]); 
     };
-
-    pos_generator(num_character, pos);
     
     //* Test Data
-    // pos[0][0] = 1; pos[0][1] = 2; pos[0][2] = 2;
-    // pos[1][0] = 1; pos[1][1] = 2; pos[1][2] = 2;
-    // pos[2][0] = 1; pos[2][1] = 0; pos[2][2] = 2;
+    //* monster: pos[0][0] = 1; pos[0][1] = 3; pos[0][2] = 4;
+    //* princess: pos[1][0] = 3; pos[1][1] = 2; pos[1][2] = 1;
+    //* lobby: pos[2][0] = 1; pos[2][1] = 0; pos[2][2] = 2;
+
+
+    pos[0][0] = 1; pos[0][1] = 3; pos[0][2] = 4;
+    pos[1][0] = 3; pos[1][1] = 2; pos[1][2] = 1;
+    pos[2][0] = 1; pos[2][1] = 0; pos[2][2] = 2;
     
 
     //* Initialize the Castle
@@ -39,10 +43,14 @@ int main(){
     castle.set_game();
     delete[] pos;
 
-    //* Game Flag for princess
-    int flag = 0;
-    int princess = 0;
-    //* {meet monster; lost princess; find princess; escape with princess;} 
+    //* Set Flags for Game Status and Princess
+    //* Four kinds of Game Status: 
+    //* normal status(search for princess); death(meet monster); 
+    //* servant mode(find princess); mission completed(back to lobby with princess)
+    int flag = 0;                //* flag = 2 Mission Completed; flag = -2 Game Over.
+    int princess = 0;            //* princess = 1 indicates that princess are guarded by you now.
+    
+    
     string command[2];
 
     while (flag != 2){
@@ -72,8 +80,6 @@ int main(){
     if (flag == 2){
          cout << "You Arrived the Lobby with Princess. Mission Completed!" << endl;
     };
-
-   
 
     return 0;
 }

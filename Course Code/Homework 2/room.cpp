@@ -13,7 +13,6 @@ extern const bool default_status[];
 
 void exit_generator(bool* exit);
 void array_copy(bool*a, const bool*b, int size);
-int rand_num(int upper);
 int sum(bool a[directions]);
 
 Room::~Room(){
@@ -43,6 +42,7 @@ void Room::set_type(string settype) {
     };
 
     };
+
 void Room::set_type(int type) {
 
     room_status[type] = true;
@@ -76,13 +76,6 @@ void Room::init_exit(string into) {
 
     //* init the exits of the current room randomly
     exit_generator(exits);
-    // int num = rand_num(directions);
-    //int i = 0;
-    //for(i=0;i<num;i++)
-    //{
-    //    exits[rand_num(directions)] = 1;
-    //};
-    //* the current room has been explored
 
     //* calc the number of exits
     num_exits = sum(exits);
@@ -142,14 +135,6 @@ void array_copy(bool*a, const bool *b, int size){
         a[i] = b[i];
     };
 }
-
-int rand_num(int upper){
-    //* upper cannot be achieved
-    int random = 0;
-    srand((unsigned)time(NULL));
-    random = rand() % upper;
-    return random;
-};
 
 int sum(bool a[directions]){
     int sum = 0;

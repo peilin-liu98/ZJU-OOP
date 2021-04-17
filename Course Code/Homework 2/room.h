@@ -14,17 +14,17 @@ class Room {
     public:
         Room() : type("ordinary"), found(0), num_exits(0) { init();};
         ~Room();
-        void init();
-        void init_exit();
-        void init_exit(string into);
-        void set_found();
-        bool explored() const;
-        void set_type(string settype);
+        void init();                                    //* Init exits and room status
+        void init_exit();                               //* Init exits for lobby
+        void init_exit(string into);                    //* Init exits for go-into room
+        void set_found();                               //* Indicating that player has visited the room
+        bool explored() const;                          //* Return vlaue of found 
+        void set_type(string settype);                  //* Room type("ordinary", "lobby", "princess", "monster")
         void set_type(int type);
-        void set_exit(string direction, bool status);
-        bool get_status(int type) const;
-        bool get_connection(int direction) const; 
-        void print();
+        void set_exit(string direction, bool status);   //* Set the specific exit of one room open or closed
+        bool get_status(int type) const;                //* Return Room Status 
+        bool get_connection(int direction) const;       //* Check whether there is an exit to the specific direction
+        void print();                                   //* Print Room Information
 
     private:
         string type;
@@ -34,6 +34,7 @@ class Room {
         bool *room_status;
 };
 
+//* Return the index of one direction
 static int go2num(string go){
     int num = directions;
     while(num == directions){

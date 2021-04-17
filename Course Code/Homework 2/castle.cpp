@@ -48,11 +48,10 @@ void Castle::path_generator(int* pos1, int* pos2){
     transition_pos = pos_connect(transition_pos, pos2, 2);
 }
 
-
 int* Castle::pos_connect(int*p1, int*p2, int dim){
     int num_layer = p2[dim] - p1[dim];
     int trans_pos[dimensions]; 
-    array_copy(trans_pos, p1); //* OKay
+    array_copy(trans_pos, p1); 
 
     if (num_layer < 0){
         trans_pos[dim] = p2[dim];
