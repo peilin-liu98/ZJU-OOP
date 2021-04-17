@@ -4,14 +4,15 @@
 
 using namespace std;
 
+extern const int num_type;
 extern const int directions;
 extern const string choices[directions];
-extern bool default_exits[]; 
+extern const bool default_exits[]; 
+extern const bool default_status[];
 
 
 void exit_generator(bool* exit);
-
-
+void array_copy(bool*a, const bool*b, int size);
 int sum(bool a[directions]){
     int sum = 0;
     for (int i=0;i<directions;i++)
@@ -21,7 +22,14 @@ int sum(bool a[directions]){
     return sum;
 };
 
+Room::~Room(){
+    delete[] exits;
+    delete[] room_status;
+};
+
 bool Room::explored() { return found; };
+
+void Room::set_found() { found = 1; };
 
 bool Room::get_status(int type){ return room_status[type]; };
 
@@ -45,10 +53,17 @@ void Room::set_exit(string direction, bool status) {
      num_exits = sum(exits);
      };
 
+void Room::init(){
+    exits = new bool[directions];
+    room_status = new bool[num_type];
+    array_copy(exits, default_exits, directions);
+    array_copy(room_status, default_status, num_type);
+};
+
+
 void Room::init_exit() { 
 
     exit_generator(exits);
-    found = 1;
     num_exits = sum(exits);    
     };
 
@@ -68,7 +83,6 @@ void Room::init_exit(string into) {
     };
 
     //* the current room has been explored
-    found = 1;
 
     //* calc the number of exits
     num_exits = sum(exits);
@@ -111,11 +125,20 @@ void Room::print() {
 };
 
 
+
 void exit_generator(bool* exit){
-    int num = rand_num(directions) + 1;
+    //* (Binomial[x-1,5] + Binomial[x-1,4] + Binomial[x-1,3] + Binomial[x-1,2])/Binomial[6-1+x,x]
+    int num = 30;
     int i = 0;
     for(i=0;i<num;i++)
     {
         exit[rand_num(directions)] = 1;
     };
 };
+
+
+void array_copy(bool*a, const bool *b, int size){
+    for(int i=0;i<size;i++){
+        a[i] = b[i];
+    };
+}

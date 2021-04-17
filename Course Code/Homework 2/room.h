@@ -3,18 +3,21 @@
 
 using namespace std;
 
+const int num_type = 3;
 const int directions = 6;
 const string choices[directions] = {"down","south", "east", "west","north","up"};
-static bool default_exits[] = {0,0,0,0,0,0};
-static bool default_status[] = {0, 0, 0}; 
+const bool default_exits[] = {0,0,0,0,0,0};
+const bool default_status[] = {0, 0, 0}; 
 
 class Room {
 
     public:
-        Room() : type("ordinary"), found(0), num_exits(0), room_status(default_status),
-        exits(default_exits) {};
+        Room() : type("ordinary"), found(0), num_exits(0) { init();};
+        ~Room();
+        void init();
         void init_exit(string into);
         void init_exit();
+        void set_found();
         bool explored();
         void set_type(string type);
         void set_exit(string direction, bool status);

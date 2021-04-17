@@ -30,6 +30,7 @@ void Castle::set_game(){
     (*monster).set_type("monster");
 
     (*lobby).init_exit();
+    (*lobby).set_found();
     check_walls(current_pos);
     
     path_generator(current_pos, pos_princess);
@@ -50,8 +51,8 @@ void Castle::path_generator(int* pos1, int* pos2){
 
 int* Castle::pos_connect(int*p1, int*p2, int dim){
     int num_layer = p2[dim] - p1[dim];
-    int *trans_pos;
-    array_copy(trans_pos, p1);
+    int trans_pos[dimensions]; //! definition problem
+    array_copy(trans_pos, p1); //* OKay
 
     if (num_layer < 0){
         trans_pos[dim] = p2[dim];
@@ -60,14 +61,18 @@ int* Castle::pos_connect(int*p1, int*p2, int dim){
     else;
     string direction = fordirect2go[dim];
     Room* temp_room = 0;
-    for (int i=0;i<num_layer;i++){
-        trans_pos[dim] ++;
-        temp_room = get_room(trans_pos);
-        (*temp_room).set_exit(direction, 1);
-    }
+    temp_room = get_room(trans_pos);
 
+    for (int i=0;i<num_layer;i++){
+        (*temp_room).set_exit(direction, 1); //! connection problem
+        trans_pos[dim] ++;   
+        temp_room = get_room(trans_pos);
+        (*temp_room).init_exit(direction);
+   };
+    
     trans_pos[dim] = p2[dim];
-    return trans_pos;
+    p1 = trans_pos;
+    return p1;
 }
 
 
@@ -87,6 +92,7 @@ void Castle::go_to(string direction){
 
     //* Initialize the current room
     Room* temp = get_room(current_pos);
+    //! room_status initilization fail
 
     if ((*temp).explored() == 0){
 
@@ -97,6 +103,7 @@ void Castle::go_to(string direction){
             game_status = 1;
         };
         (*temp).init_exit(direction);
+        (*temp).set_found();
         //* Fix the hole to the outside
         check_walls(current_pos); 
     }
