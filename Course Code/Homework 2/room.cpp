@@ -29,20 +29,25 @@ bool Room::get_status(int type) const { return room_status[type]; };
 
 bool Room::get_connection(int direction) const { return exits[direction]; };
 
-void Room::set_type(string type) { 
+void Room::set_type(string settype) { 
     
-    this->type = type; 
+    type = settype; 
     if (type == "lobby"){
         room_status[0] = true;
-    }
-    else if (type == "monster"){
+    };
+    if (type == "monster"){
         room_status[2] = true;
-    }
-    else if (type == "princess"){
+    };
+    if (type == "princess"){
         room_status[1] = true;
     };
 
     };
+void Room::set_type(int type) {
+
+    room_status[type] = true;
+
+};
 
 void Room::set_exit(string direction, bool status) {
      exits[go2num(direction)] = status; 
@@ -56,7 +61,6 @@ void Room::init(){
     array_copy(room_status, default_status, num_type);
 };
 
-
 void Room::init_exit() { 
 
     exit_generator(exits);
@@ -67,17 +71,17 @@ void Room::init_exit(string into) {
     
     //* ensure that the current room connects with the last one.
     int last_exit = go2num(into);
-    exits[directions-1-last_exit] = 1;
+    int from_gate = directions - 1 - last_exit;
+    exits[from_gate] = 1;
 
     //* init the exits of the current room randomly
     exit_generator(exits);
-    int num = rand_num(directions);
-    int i = 0;
-    for(i=0;i<num;i++)
-    {
-        exits[rand_num(directions)] = 1;
-    };
-
+    // int num = rand_num(directions);
+    //int i = 0;
+    //for(i=0;i<num;i++)
+    //{
+    //    exits[rand_num(directions)] = 1;
+    //};
     //* the current room has been explored
 
     //* calc the number of exits
@@ -120,8 +124,6 @@ void Room::print() {
 
 };
 
-
-
 void exit_generator(bool* exit){
     //* (Binomial[x-1,5] + Binomial[x-1,4] + Binomial[x-1,3] + Binomial[x-1,2])/Binomial[6-1+x,x]
     int num = 6;
@@ -135,13 +137,11 @@ void exit_generator(bool* exit){
     };
 };
 
-
 void array_copy(bool*a, const bool *b, int size){
     for(int i=0;i<size;i++){
         a[i] = b[i];
     };
 }
-
 
 int rand_num(int upper){
     //* upper cannot be achieved

@@ -15,11 +15,12 @@ class Room {
         Room() : type("ordinary"), found(0), num_exits(0) { init();};
         ~Room();
         void init();
-        void init_exit(string into);
         void init_exit();
+        void init_exit(string into);
         void set_found();
         bool explored() const;
-        void set_type(string type);
+        void set_type(string settype);
+        void set_type(int type);
         void set_exit(string direction, bool status);
         bool get_status(int type) const;
         bool get_connection(int direction) const; 

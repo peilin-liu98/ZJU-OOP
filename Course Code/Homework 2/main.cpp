@@ -8,6 +8,7 @@ extern const int dimensions;
 extern int rand_num(int upper);
 extern const int box[]; 
 void pos_generator(int num, int (*pos)[dimensions]);
+bool pos_check(int *pos1, int *pos2);
 
 int main(){
     //* Game Setup
@@ -16,12 +17,21 @@ int main(){
 
     const int num_character = 3;
     int (*pos)[dimensions] = new int[num_character][dimensions];
+    
+
+    int check = 1;
+    while(check > 0){
+        pos_generator(num_character, pos);
+        check = pos_check(pos[0],pos[2]) + pos_check(pos[1], pos[2]) 
+        + pos_check(pos[0], pos[1]); 
+    };
+
     pos_generator(num_character, pos);
     
     //* Test Data
-     //pos[0][0] = 4; pos[0][1] = 4; pos[0][2] = 2;
-     //pos[1][0] = 1; pos[1][1] = 4; pos[1][2] = 2;
-     //pos[2][0] = 3; pos[2][1] = 4; pos[2][2] = 2;
+    // pos[0][0] = 1; pos[0][1] = 2; pos[0][2] = 2;
+    // pos[1][0] = 1; pos[1][1] = 2; pos[1][2] = 2;
+    // pos[2][0] = 1; pos[2][1] = 0; pos[2][2] = 2;
     
 
     //* Initialize the Castle
@@ -74,8 +84,19 @@ void pos_generator(int num, int (*pos)[dimensions]){
     srand((unsigned)time(NULL));
     for (i=0;i<num;i++){
         for (j=0;j<dimensions;j++){
-            random = rand() % (box[j] + 1); 
+            random = rand() % border[j]; 
             pos[i][j] = random;
         };
     };
+}
+
+bool pos_check(int *pos1, int *pos2){
+    bool flag = 1;
+    for(int i=0;i<dimensions;i++){
+        if(pos1[i] != pos2[i]){
+            flag = 0;
+            break;
+        };
+    };
+    return flag;
 }

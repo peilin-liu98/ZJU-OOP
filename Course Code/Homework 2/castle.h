@@ -4,10 +4,10 @@
 
 using namespace std;
 
-const int max_level = 2;
-const int max_length = 2;
-const int max_width = 2;
-const int box[] = {max_width, max_length, max_level};
+const int max_level = 3;
+const int max_length = 3;
+const int max_width = 3;
+const int border[] = {max_width, max_length, max_level};
 const int dimensions = 3;
 const string fordirect2go[] = {"west","north","up"};
 const string backdirect2go[] = {"east", "south", "down"};
@@ -17,15 +17,15 @@ static const string *walls[] = {backdirect2go, fordirect2go};
 class Castle{
     public:
         Castle(int* pos_m, int* pos_p, int* pos_lobby) : 
-            pos_monster(pos_m), pos_princess(pos_p), current_pos(pos_lobby), game_status(0) {};
+        pos_monster(pos_m), pos_princess(pos_p), current_pos(pos_lobby), game_status(0) {};
         void set_game();
         void path_generator(int* pos1, int* pos2);
         int* pos_connect(int*p1, int*p2, int dim);
         void go_to(string direction);
+        void check_walls(int* pos);
         bool check_way(string direction);
         int get_status();
         void print();
-        void check_walls(int* pos);
         Room* get_room(int* pos);
 
 

@@ -25,9 +25,9 @@ void Castle::set_game(){
     Room* princess = get_room(pos_princess);
     Room* monster = get_room(pos_monster);
 
-    (*lobby).set_type("lobby");
-    (*princess).set_type("princess");
-    (*monster).set_type("monster");
+    (*lobby).set_type(0);
+    (*princess).set_type(1);
+    (*monster).set_type(2);
 
     (*lobby).init_exit();
     (*lobby).set_found();
@@ -51,7 +51,7 @@ void Castle::path_generator(int* pos1, int* pos2){
 
 int* Castle::pos_connect(int*p1, int*p2, int dim){
     int num_layer = p2[dim] - p1[dim];
-    int trans_pos[dimensions]; //! definition problem
+    int trans_pos[dimensions]; 
     array_copy(trans_pos, p1); //* OKay
 
     if (num_layer < 0){
@@ -60,11 +60,10 @@ int* Castle::pos_connect(int*p1, int*p2, int dim){
     }
     else;
     string direction = fordirect2go[dim];
-    Room* temp_room = 0;
-    temp_room = get_room(trans_pos);
+    Room* temp_room = get_room(trans_pos);
 
     for (int i=0;i<num_layer;i++){
-        (*temp_room).set_exit(direction, 1); //! connection problem
+        (*temp_room).set_exit(direction, 1); 
         trans_pos[dim] ++;   
         temp_room = get_room(trans_pos);
         (*temp_room).init_exit(direction);
@@ -76,7 +75,6 @@ int* Castle::pos_connect(int*p1, int*p2, int dim){
 }
 
 bool Castle::check_way(string direction){
-
     int num = go2num(direction);
     Room* temp = get_room(current_pos);
     bool connection = 0;
@@ -85,8 +83,7 @@ bool Castle::check_way(string direction){
     return connection; 
 };
 
-void Castle::go_to(string direction){
-    
+void Castle::go_to(string direction){    
     int num = go2num(direction);
     int dim = num - dimensions;
     int step = 0;
@@ -102,7 +99,6 @@ void Castle::go_to(string direction){
 
     //* Initialize the current room
     Room* temp = get_room(current_pos);
-    //! room_status initilization fail
 
     if ((*temp).explored() == 0){
 
@@ -118,12 +114,14 @@ void Castle::go_to(string direction){
         check_walls(current_pos); 
     }
     else{
-        game_status += (*temp).get_status(0);     
+        if (game_status == 1){
+            game_status += (*temp).get_status(0);
+        };     
     };
 
-
-    cout << "current position:" << current_pos[0] << " " << current_pos[1] << " "
-    << current_pos[2] << endl;
+    //* Test
+    // cout << "current position:" << current_pos[0] << " " << current_pos[1] << " "
+    // << current_pos[2] << endl;
 };
 
 
@@ -134,7 +132,7 @@ void Castle::check_walls(int*pos){
         if (pos[i] == 0){
             fix_walls(temp, i, 0);
         }
-        else if (pos[i] == box[i]){
+        else if (pos[i] == (border[i] - 1)){
             fix_walls(temp, i, 1);
         };
     };
