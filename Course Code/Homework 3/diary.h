@@ -51,6 +51,7 @@ static void read_memory(Diary &d){
         while(getline(filein,line)){
             if (line.empty() == true){
                 d.add_diary(time, temp);
+                temp.clear();
                 break;
             }
             else{

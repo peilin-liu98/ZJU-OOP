@@ -5,7 +5,8 @@ using namespace std;
 int main(int argc, char** argv){
 
     int beg, tail;
-    if(argv[1] == ""){
+    
+    if(argc == 1){
        beg = 0;
        tail = 99999999; 
     }
@@ -15,7 +16,8 @@ int main(int argc, char** argv){
         end = end + argv[6] + " " + argv[7] + " " +argv[8];
         beg = string2time(start);
         tail = string2time(end);
-    }
+    };
+
     Diary d;
     read_memory(d);
 

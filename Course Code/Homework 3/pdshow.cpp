@@ -11,6 +11,7 @@ int main(int argc, char** argv){
     read_memory(d);
 
     int t = string2time(time);
+
     d.show(t);
 
     return 0; 
