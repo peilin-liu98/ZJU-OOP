@@ -13,7 +13,7 @@ int Diary::search_date(int time) const {
 };
 
 void Diary::add_diary(int time, vector<string> & text) {
-    content.insert({time, text});
+    content.insert(make_pair(time, text));
     date.insert(time);
 };
 

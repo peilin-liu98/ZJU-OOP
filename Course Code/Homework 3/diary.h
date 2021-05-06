@@ -1,3 +1,4 @@
+#include <fstream>
 #include <iostream>
 #include <sstream>
 #include <set>
@@ -20,7 +21,7 @@ class Diary{
 };
 
 
-int string2time(string line){
+static int string2time(string line){
 
     stringstream t(line);
     vector<int> date;
@@ -34,16 +35,20 @@ int string2time(string line){
 
 };
 
-void read_memory(Diary &d){
+static void read_memory(Diary &d){
 
     string line;
     int time = 0;
     vector<string> temp;
+    ifstream filein("diary.txt");
 
-    while(getline(cin,line))
+
+    while(getline(filein,line))
     {
+        if (line.empty() == true)
+            break;
         time = string2time(line);
-        while(getline(cin,line)){
+        while(getline(filein,line)){
             if (line.empty() == true){
                 d.add_diary(time, temp);
                 break;
@@ -53,13 +58,16 @@ void read_memory(Diary &d){
             };
         };    
     };
+    filein.close();
 };
 
-void output(Diary &d){
+static void output(Diary &d){
     
     vector<int> date(d.list_date());
     for(auto ptr=date.cbegin(); ptr!=date.cend(); ptr++)
         d.show(*ptr);
+    
+    cout << endl;
 };
 
 
