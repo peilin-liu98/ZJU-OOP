@@ -8,10 +8,10 @@ using namespace std;
 
 class Diary{
     public:
-    int search_date(int time);
+    int search_date(int time) const;
     void add_diary(int time, vector<string> & text);  //* 同时修改map与set
-    vector<int> list_date(int begin = 0, int end = 99999999);
-    void show(int time);
+    vector<int> list_date(int begin = 0, int end = 99999999) const;
+    void show(int time) const;
     int rm(int time);
 
     private:
@@ -57,15 +57,9 @@ void read_memory(Diary &d){
 
 void output(Diary &d){
     
-    string time;
     vector<int> date(d.list_date());
-    for(auto ptr=date.cbegin(); ptr!=date.cend(); ptr++){
-        time = to_string(*ptr);
-        cout << time.substr(0,4) << " "
-             << time.substr(4,2) << " "
-             << time.substr(6) << endl;
+    for(auto ptr=date.cbegin(); ptr!=date.cend(); ptr++)
         d.show(*ptr);
-    };
 };
 
 
