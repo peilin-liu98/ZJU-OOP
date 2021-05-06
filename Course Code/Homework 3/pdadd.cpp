@@ -1,4 +1,3 @@
-#include <iostream>
 #include "diary.h"
 
 using namespace std;
