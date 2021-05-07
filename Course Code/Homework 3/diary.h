@@ -9,11 +9,11 @@ using namespace std;
 
 class Diary{
     public:
-    int search_date(int time) const;
-    void add_diary(int time, vector<string> & text);  //* 同时修改map与set
-    vector<int> list_date(int begin = 0, int end = 99999999) const;
-    void show(int time) const;
-    int rm(int time);
+    int search_date(int time) const;                                    //* check the date, return 0/1 
+    void add_diary(int time, vector<string> & text);                    //* add new diary pair (time, text)
+    vector<int> list_date(int begin = 0, int end = 99999999) const;     //* return the entities between the start and the end
+    void show(int time) const;                                          //* show the text of the specified date
+    int rm(int time);                                                   //* remove the diary pair, return 0/-1
 
     private:
     map<int, vector<string> > content;
@@ -22,6 +22,9 @@ class Diary{
 
 
 static int string2time(string line){
+    
+    //* change type of time record from string to int
+    //* e.g. "2021 04 22" -> 20210422
 
     stringstream t(line);
     vector<int> date;
@@ -36,7 +39,9 @@ static int string2time(string line){
 };
 
 static void read_memory(Diary &d){
-
+    
+    //* read data from local file "diary.txt" and load it into object diary
+    
     string line;
     int time = 0;
     vector<string> temp;
@@ -64,11 +69,21 @@ static void read_memory(Diary &d){
 
 static void output(Diary &d){
     
+    //* rewrite the local file "diary.txt" to store memory
+    
+    ofstream fileout;
+    fileout.open("diary.txt");
+    
+    auto backup = cout.rdbuf();
+    cout.rdbuf(fileout.rdbuf());
+
     vector<int> date(d.list_date());
     for(auto ptr=date.cbegin(); ptr!=date.cend(); ptr++)
-        d.show(*ptr);
-    
+        d.show(*ptr);  
     cout << endl;
+
+    cout.rdbuf(backup);
+    fileout.close();
 };
 
 
