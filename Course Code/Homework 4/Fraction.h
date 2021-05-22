@@ -123,6 +123,16 @@ bool operator!=(const Fraction &f1, const Fraction &f2)
 istream& operator>>(istream& in, Fraction& f)
 {
     string str_f;
+    in >> str_f;
+    
+    str_f.replace(str_f.find("/"), 1, " ");
+    
+    stringstream s(str_f);
+    s >> f.numerator >> f.denominator;
+    
+    f.reduction(f.numerator, f.denominator);
+
+    return in;
     
 };
 
