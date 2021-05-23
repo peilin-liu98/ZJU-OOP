@@ -1,6 +1,7 @@
 #include "Fraction.h"
 #include <string>
 #include <sstream>
+#include<math.h>
 using namespace std;
 
 int gcd(int num1, int num2) {
@@ -14,23 +15,15 @@ int gcd(int num1, int num2) {
 
 void Fraction::reduction(int& num1, int& num2)
 {
-    int temp = gcd(num1, num2);
+    int temp = abs(gcd(num1, num2));
     num1 /= temp;
     num2 /= temp;
 };
 
-int decimal_count(double decimal)
+int decimal_count(string decimal)
 {
-    int intergal = (int)decimal;
-    double res = decimal - intergal;
-    int count = 1;
-
-    while(res != 0){
-        decimal = res * 10;
-        res = decimal - int(decimal);
-        count *= 10;
-    }
-    return count;
+    string sub = decimal.substr(decimal.find("."));
+    return sub.length() - 1;
 };
 
 Fraction::Fraction(string str_f)
@@ -39,9 +32,9 @@ Fraction::Fraction(string str_f)
    double f = 0;
    while(s >> f)
    {
-       int n = decimal_count(f);
-       numerator = (int)f*n;
-       denominator = n;
+       int n = decimal_count(str_f);
+       denominator = pow(10,n);
+       numerator = (int)(f * denominator);
        reduction(numerator, denominator);
    };
 };
@@ -99,12 +92,13 @@ Fraction operator*(const Fraction &f1, const Fraction &f2)
 Fraction operator/(const Fraction &f1, const Fraction &f2)
 {
     Fraction f;
-    while(f2.numerator != 0)
+    if (f2.numerator != 0)
     {
         f.denominator = f2.numerator;
         f.numerator = f2.denominator;
         f = f1 * f;
-    };
+    }
+    else cout << "Cannot be divided by 0." << endl;
 
     return f;
 };
