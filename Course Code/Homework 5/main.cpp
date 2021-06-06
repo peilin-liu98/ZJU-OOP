@@ -10,6 +10,8 @@ int main(){
     for (int i=0; i<10; i++)
         array_0.push_back(i);
 
+    cout << array_0[2] << endl;
+
     cout << "Array is Empty? " << array_0.empty() << endl;
     cout << "Size of Array: " << array_0.size() << endl;
 
@@ -23,6 +25,7 @@ int main(){
         cout << array_2[i] << " ";
     }
     
+    cout << "Push back a new element: " << endl;
     array_2.push_back(10*10);
     cout << array_2[10] << endl;
 

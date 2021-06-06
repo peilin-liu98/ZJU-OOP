@@ -1,4 +1,6 @@
 #include <stdexcept>
+#include <iostream>
+using namespace std;
                                             
 template <class T>
 class Vector {
@@ -7,7 +9,7 @@ class Vector {
         Vector(int size);              //* creates a vector for holding 'size' elements
         Vector(const Vector& r);       //* the copy ctor
         ~Vector();                     //* destructs the vector 
-        T& operator[](int index);      //* accesses the specified element without bounds checking
+        T& operator[](int index) const;      //* accesses the specified element without bounds checking
         T& at(int index);              //* accesses the specified element, throws an exception of type 'std::out_of_range' when index <0 or >=m_nSize
         int size() const;              //* return the size of the container
         void push_back(const T& x);    //* adds an element to the end 
@@ -34,7 +36,7 @@ template <class T>
 Vector<T>::Vector(int size){
     
     m_pElements = new T[size];
-    m_nSize = 0;
+    m_nSize = size;
     m_nCapacity = size;
 }
 
@@ -45,8 +47,9 @@ Vector<T>::Vector(const Vector& r){
     m_nSize = r.m_nSize;
     m_pElements = new T[m_nCapacity];
 
-    for (int i=0; i<m_nSize; i++)
-        (*this).at[i] = r[i];
+    for (int i=0; i<m_nSize; i++){
+        (*this).at(i) = r[i];
+    }
 
 }
 
@@ -57,9 +60,11 @@ Vector<T>::~Vector(){
 }
 
 template <class T>
-T& Vector<T>::operator[](int index){
+T& Vector<T>::operator[](int index) const{
 
-    return *(m_pElements + index * sizeof(T));
+    T& get = m_pElements[index];
+
+    return get;
 }
 
 template <class T>
@@ -68,8 +73,9 @@ T& Vector<T>::at(int index){
     if (index < 0 || index >= m_nSize)
         throw std::out_of_range("Index Out of the Bounds");
     
-    return (*this)[index];
+    T& get = (*this)[index];
 
+    return get;
 }
 
 template <class T>
@@ -84,14 +90,14 @@ void Vector<T>::inflate() {
     m_nCapacity = 2 * (m_nCapacity + 1);
     T* new_ptr = new T[m_nCapacity];
     for (int i=0; i<m_nSize; i++)
-        *(new_ptr + i*sizeof(T)) = (*this)[i];
+        new_ptr[i] = (*this)[i];
     
     delete[] m_pElements;
     m_pElements = new_ptr;
 }
 
 template <class T>
-void Vector<T>::push_back( const T& x){
+void Vector<T>::push_back(const T& x){
 
     if (m_nSize == m_nCapacity) 
         inflate();
