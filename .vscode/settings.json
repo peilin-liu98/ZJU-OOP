@@ -1,5 +1,11 @@
 {
     "lldb.displayFormat": "auto",
     "lldb.showDisassembly": "auto",
-    "lldb.dereferencePointers": false
+    "lldb.dereferencePointers": false,
+    "files.associations": {
+        "iosfwd": "cpp",
+        "string": "cpp",
+        "numeric": "cpp",
+        "ostream": "cpp"
+    }
 }

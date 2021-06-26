@@ -10,9 +10,10 @@
             "name": "Launch",
             "type": "lldb",
             "request": "launch",
-            "program": "${workspaceFolder}/a.out",
-            "args": ["-arg1", "-arg2"],
+            "program": "${workspaceFolder}/Course Code/Homework 5/a.out",
+            "args": [""],
             "preLaunchTask": "C/C++: clang build active file",
+            
         }
     ]
 }

@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/peterliu/Desktop/CS/CPP/ZJU-OOP/Course Code/Homework 5/Vector.h
+stdexcept
+-
+
+/Users/peterliu/Desktop/CS/CPP/ZJU-OOP/Course Code/Homework 5/main.cpp
+iostream
+-
+Vector.h
+/Users/peterliu/Desktop/CS/CPP/ZJU-OOP/Course Code/Homework 5/Vector.h
+
